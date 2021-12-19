@@ -1,2 +1,3 @@
-# mint-setup
-Things to achieve a custom configuration for Linux Mint
+# Mint Set Up
+
+Achieve custom configuration for Linux Mint
