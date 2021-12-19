@@ -1,0 +1,15 @@
+#Volume down
+"xte 'key XF86AudioLowerVolume'"
+ b:6
+
+#Volume up
+"xte 'key XF86AudioRaiseVolume'"
+ b:7
+
+#Paste
+"xte 'keydown Control_L' 'key V' 'keyup Control_L'" 
+ b:8
+
+#Copy
+"xte 'keydown Control_L' 'key C' 'keyup Control_L'" 
+ b:9

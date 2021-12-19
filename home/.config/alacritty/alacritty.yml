@@ -1,0 +1,72 @@
+env:
+  LANG: 'en_US.UTF-8'
+  LC_CTYPE: en_US.UTF-8
+
+window:
+  dimensions:
+    columns: 82
+    lines: 32
+  padding:
+    x: 6
+    y: 6
+
+font:
+  normal:
+    family: "Hack Nerd Font"
+    style: Regular
+  bold:
+    family: "Hack Nerd Font"
+    style: Bold
+  italic:
+    family: "Hack Nerd Font"
+    style: Italic
+  bold_italic:
+    family: "Hack Nerd Font"
+    style: Bold Italic
+  size: 14.0
+  use_thin_strokes: true
+
+colors:
+  primary:
+    background: '#173d52'
+    foreground: '#d8dee9'
+  cursor:
+    text: '#1b2b34'
+    cursor: '#ffffff'
+  normal:
+    black: '#343d46'
+    red: '#EC5f67'
+    green: '#99C794'
+    yellow: '#FAC863'
+    blue: '#6699cc'
+    magenta: '#c594c5'
+    cyan: '#5fb3b3'
+    white: '#d8dee9'
+  bright:
+    black: '#343d46'
+    red: '#EC5f67'
+    green: '#99C794'
+    yellow: '#FAC863'
+    blue: '#6699cc'
+    magenta: '#c594c5'
+    cyan: '#5fb3b3'
+    white: '#d8dee9'
+theme: Oceanic-Next
+
+background_opacity: 0.95
+
+mouse_bindings:
+  - { mouse: Right, action: PasteSelection }
+
+selection:
+  save_to_clipboard: true
+
+key_bindings:
+# (Custom)
+  - { key: N, mods: Control, action: SpawnNewInstance }
+  - { key: Space, mods: Alt, chars: " " }
+  - { key: Back, mods: Super, chars: "\x15" } # delete word/line
+  - { key: Left, mods: Alt, chars: "\x1bb" } # one word left
+  - { key: Right, mods: Alt, chars: "\x1bf" } # one word right
+  - { key: Left, mods: Command, chars: "\x1bOH", mode: AppCursor } # Home
+  - { key: Right, mods: Command, chars: "\x1bOF", mode: AppCursor } # End
