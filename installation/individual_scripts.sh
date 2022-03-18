@@ -55,6 +55,7 @@ sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadm
 apt install pgadmin4
 
 # Snap installations
+snap install code --classic
 snap install spotify
 snap install discord
 snap install vlc
@@ -62,3 +63,6 @@ snap install notion-snap
 snap install alacritty --classic
 snap install terraform --candidate
 snap install postman
+snap install zoom-client
+snap install teams-for-linux
+snap install todoist
