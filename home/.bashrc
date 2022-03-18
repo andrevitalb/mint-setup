@@ -129,23 +129,6 @@ alias pf:dev:frontend="cd $PERFECTED_PATH; yarn dev:frontend"
 # Run /backend
 alias pf:dev:backend="cd $PERFECTED_PATH; yarn dev:backend"
 
-### Partnerbeat commands
-export PARTNERBEAT_PATH=$WORK_PATH/partnerbeat/PartnerBeatGoReact
-# Initialize docker container
-alias pb:docker="docker start fdf157bbb7a4"
-# Navigate to project
-alias partnerbeat="cd $PARTNERBEAT_PATH"
-# Navigate to /server (with source)
-alias pb:nav:backend="cd $PARTNERBEAT_PATH/server; source ../.env"
-# Navigate to /collab (with source)
-alias pb:nav:collab="cd $PARTNERBEAT_PATH/collab; source ../.env"
-# Run /client
-alias pb:dev:frontend="cd $PARTNERBEAT_PATH/client; npm start"
-# Run /server
-alias pb:dev:backend="pb:nav:backend; gin --port 8080 go run main.go"
-# Run /collab
-alias pb:dev:collab="pb:nav:collab; npm run dev"
-
 # Alacritty
 alias aledit="nano $HOME/.config/alacritty/alacritty.yml"
 
