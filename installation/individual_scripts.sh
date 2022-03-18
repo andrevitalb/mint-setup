@@ -20,11 +20,11 @@ apt install deluge \
 curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 apt update
-install brave-browser
+apt install brave-browser
 
 # Node JS
-curl -sL https://deb.nodesource.com/setup_16.x | -E bash -
-install nodejs
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+apt install nodejs
 # NPM basic packages
 npm i -g npm-check-updates yarn
 
@@ -59,6 +59,6 @@ snap install spotify
 snap install discord
 snap install vlc
 snap install notion-snap
-snap install alacritty
+snap install alacritty --classic
 snap install terraform --candidate
 snap install postman
