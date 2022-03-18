@@ -117,13 +117,15 @@ if ! shopt -oq posix; then
 fi
 
 alias python=python3.10
-export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/Documents/System/Shortcut_Bindings
-export WORK_PATH=$HOME/Documents/Work_Stuff
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/Documents/System/Shortcut_Bindings:$HOME/.cargo/bin
+export WORK_PATH=$HOME/Documents/work_stuff
 
 ### Perfected commands
 export PERFECTED_PATH=$WORK_PATH/originate/perfected
 # Navigate to project
 alias perfected="cd $PERFECTED_PATH"
+# Open project in VS Code
+alias perfected:code="perfected && code . && exit"
 # Run /frontend
 alias pf:dev:frontend="cd $PERFECTED_PATH; yarn dev:frontend"
 # Run /backend
@@ -134,4 +136,3 @@ alias aledit="nano $HOME/.config/alacritty/alacritty.yml"
 
 # Logo-LS
 alias ls="logo-ls"
-. "$HOME/.cargo/env"
