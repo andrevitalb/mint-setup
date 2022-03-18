@@ -1,7 +1,7 @@
 apt install plank
 
-mkdir -p Documents/System/Themes/WhiteSur
-cd Documents/System/Themes/WhiteSur
+mkdir -p ~/Documents/System/Themes/WhiteSur
+cd ~/Documents/System/Themes/WhiteSur
 git clone https://github.com/vinceliuice/WhiteSur-gtk-theme
 git clone https://github.com/vinceliuice/WhiteSur-cursors
 git clone https://github.com/vinceliuice/WhiteSur-icon-theme
