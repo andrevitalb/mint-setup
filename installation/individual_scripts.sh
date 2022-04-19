@@ -51,8 +51,8 @@ apt install postgresql
 
 # PgAdmin4
 curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | apt-key add
-sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
-apt install pgadmin4
+sh -c 'echo "deb [arch=$(dpkg --print-architecture)] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+apt install pgadmin4-desktop
 
 # Inkdrop
 wget https://api.inkdrop.app/download/linux/deb -O /tmp/inkdrop.deb && sudo dpkg -i /tmp/inkdrop.deb && rm /tmp/inkdrop.deb
