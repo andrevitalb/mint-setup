@@ -1,5 +1,9 @@
 [user]
 	name = andrevitalb
-	email = santiago_vital@outlook.com
+	email = andre@andrevital.com
 [credential]
 	helper = cache
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
