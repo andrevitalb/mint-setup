@@ -9,6 +9,7 @@ window:
   padding:
     x: 6
     y: 6
+  opacity: 0.85
 
 font:
   normal:
@@ -24,7 +25,6 @@ font:
     family: "Hack Nerd Font"
     style: Bold Italic
   size: 14.0
-  use_thin_strokes: true
 
 colors:
   primary:
@@ -52,8 +52,6 @@ colors:
     cyan: '#5fb3b3'
     white: '#d8dee9'
 theme: Oceanic-Next
-
-background_opacity: 0.95
 
 mouse_bindings:
   - { mouse: Right, action: PasteSelection }
