@@ -12,3 +12,6 @@ sudo usermod -aG docker $USER
 newgrp docker
 # Run groups and confirm docker is listed
 groups
+
+# Login screen on main monitor (after marking it as primary on settings)
+cp ~/.config/monitors.xml ~gdm/.config/monitors.xml
