@@ -1,18 +1,14 @@
 apt install plank
 
-mkdir -p ~/Documents/System/Themes/WhiteSur
-cd ~/Documents/System/Themes/WhiteSur
-git clone https://github.com/vinceliuice/WhiteSur-gtk-theme
-git clone https://github.com/vinceliuice/WhiteSur-cursors
-git clone https://github.com/vinceliuice/WhiteSur-icon-theme
+mkdir -p ~/Documents/system/themes/whitesur
+cd ~/Documents/system/themes/whitesur
+git clone git@github.com:vinceliuice/WhiteSur-gtk-theme
+git clone git@github.com:vinceliuice/WhiteSur-cursors
+git clone git@github.com:vinceliuice/WhiteSur-icon-theme
 
-cd WhiteSur-gtk-theme
-./install.sh
+WhiteSur-gtk-theme/install.sh
 
-cp -R src/other/plank/* ~/.local/share/plank/themes
+cp -r WhiteSur-gtk-theme/src/other/plank/* ~/.local/share/plank/themes
 
-cd ../WhiteSur-icon-theme
-./install.sh
-
-cd ../WhiteSur-cursors
-./install.sh
+WhiteSur-icon-theme/install.sh
+WhiteSur-cursors/install.sh
