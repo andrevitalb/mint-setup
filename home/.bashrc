@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -65,7 +65,7 @@ unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
+xterm*|rxvt*|alacritty*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
 *)
@@ -116,8 +116,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-alias python=python3.10
-export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/Documents/System/Shortcut_Bindings:$HOME/.cargo/bin
+alias mkdir='mkdir -p'
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.cargo/env:$HOME/.bun/bin
 export WORK_PATH=$HOME/Documents/work_stuff
 
 ### Perfected commands
@@ -130,6 +130,18 @@ alias perfected:code="perfected && code . && exit"
 alias pf:dev:frontend="cd $PERFECTED_PATH; yarn dev:frontend"
 # Run /backend
 alias pf:dev:backend="cd $PERFECTED_PATH; yarn dev:backend"
+
+### Perfected commands
+export AV_PATH=$WORK_PATH/av/andrevital.com
+# Navigate to project
+alias av="cd $AV_PATH"
+# Open project in VS Code
+alias av:code="av && code . && exit"
+# Run /frontend
+alias av:dev:frontend="cd $AV_PATH; yarn dev:frontend"
+# Run /backend
+alias av:dev:backend="cd $AV_PATH; yarn dev:backend"
+
 
 # Alacritty
 alias aledit="nano $HOME/.config/alacritty/alacritty.yml"
