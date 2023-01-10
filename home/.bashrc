@@ -125,26 +125,75 @@ export PERFECTED_PATH=$WORK_PATH/originate/perfected
 # Navigate to project
 alias perfected="cd $PERFECTED_PATH"
 # Open project in VS Code
-alias perfected:code="perfected && code . && exit"
+alias perfected:code="perfected && codef ."
 # Run /frontend
-alias pf:dev:frontend="cd $PERFECTED_PATH; yarn dev:frontend"
+alias pf:dev:frontend="perfected; yarn dev:frontend"
 # Run /backend
-alias pf:dev:backend="cd $PERFECTED_PATH; yarn dev:backend"
+alias pf:dev:backend="perfected; yarn dev:backend"
 
-### Perfected commands
+### AV commands
 export AV_PATH=$WORK_PATH/av/andrevital.com
 # Navigate to project
 alias av="cd $AV_PATH"
 # Open project in VS Code
-alias av:code="av && code . && exit"
+alias av:code="av && codef ."
 # Run /frontend
-alias av:dev:frontend="cd $AV_PATH; yarn dev:frontend"
+alias av:dev:frontend="av; yarn dev:frontend"
 # Run /backend
-alias av:dev:backend="cd $AV_PATH; yarn dev:backend"
+alias av:dev:backend="av; yarn dev:backend"
 
+### Flip commands
+export FLIP_PATH=$WORK_PATH/flip
+# Navigate to project
+alias flip="cd $FLIP_PATH"
+# Open project in VS Code
+alias flip:code="flip && codef ."
+# Run /frontend
+alias flip:dev:frontend="flip; cd flip-frontend; npm start"
+# Run /backend
+alias flip:dev:backend="flip; cd flip-python-db; \
+			export FLASK_APP=app.py; \
+			export FLASK_DEBUG=1; \
+			flask run"
 
+### Saatchi Art commands
+export SAATCHI_PATH=$WORK_PATH/saatchi_art
+# Navigate to project
+alias saatchi="cd $SAATCHI_PATH"
+# Open easel (FE) project in VS Code
+alias saatchi:code="saatchi && cd easel && codef ."
+# Docker login
+alias saatchi:docker="aws sso login && \
+   		      (aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 345127489059.dkr.ecr.us-west-1.amazonaws.com)"
+# XDocker start all
+alias saatchi:start="sudo service mysql stop && \
+		     saatchi && cd xdocker && \
+		     ./start_all --without-pull --disable-backend"
+# XDocker stop app
+alias saatchi:stop="saatchi && cd xdocker && ./stop_all && \
+		    sudo service mysql start"
+
+### Custom commands for directories/actions
 # Alacritty
 alias aledit="nano $HOME/.config/alacritty/alacritty.yml"
-
 # Logo-LS
 alias ls="logo-ls"
+# Radian
+alias r="radian"
+# Turn on keyboard
+alias kb="sudo rogauracore brightness 3"
+# Kill plank
+alias kp="killall plank"
+# Uni folder
+alias uni="cd ~/Documents/uni/7"
+# Run Jupyter on current folder
+alias jupyter="bash ~/Documents/system/scripts/run-jupyter.sh"
+# Open any folder in VS Code & exit terminal
+codef() {
+    code "$1" && exit
+}
+# Open Nautilus browser on current folder
+alias files="nautilus --browser ."
+# Stupid ass misspelling clear all the time
+alias celar="clear"
+alias clera="clear"
