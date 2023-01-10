@@ -110,3 +110,4 @@ snap install terraform --classic
 snap install zoom-client
 snap install teams-for-linux
 snap install todoist
+snap install bluemail
