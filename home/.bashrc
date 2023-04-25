@@ -147,11 +147,13 @@ export FLIP_PATH=$WORK_PATH/flip
 # Navigate to project
 alias flip="cd $FLIP_PATH"
 # Open project in VS Code
-alias flip:code="flip && codef ."
+alias flip:code="flip; cd flip-frontend; codef ."
 # Run /frontend
-alias flip:dev:frontend="flip; cd flip-frontend; npm start"
+alias flip:dev:frontend="flip; cd flip-frontend; yarn dev:frontend"
 # Run /backend
-alias flip:dev:backend="flip; cd flip-python-db; \
+alias flip:dev:backend="flip; cd flip-frontend; yarn dev:backend"
+# Run /python-db
+alias flip:dev:flask="flip; cd flip-python-db; \
 			export FLASK_APP=app.py; \
 			export FLASK_DEBUG=1; \
 			flask run"
@@ -161,17 +163,38 @@ export SAATCHI_PATH=$WORK_PATH/saatchi_art
 # Navigate to project
 alias saatchi="cd $SAATCHI_PATH"
 # Open easel (FE) project in VS Code
-alias saatchi:code="saatchi && cd easel && codef ."
+alias saatchi:code:easel="saatchi && cd easel && codef ."
+# Open legacy (saatchiart) project in VS Code
+alias saatchi:code:legacy="saatchi && cd saatchiart && codef ."
+# Open xgateway project in VS Code
+alias saatchi:code:xgateway="saatchi && cd xgateway && codef ."
 # Docker login
 alias saatchi:docker="aws sso login && \
    		      (aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 345127489059.dkr.ecr.us-west-1.amazonaws.com)"
+# Pull from all git repositories
+saatchipull() {
+  saatchi && \
+	cd easel && printf "Pulling Easel:\n" && git pull && \
+	cd ../gallery && printf "Pulling Gallery:\n" && git pull && \
+	cd ../imgproc && printf "Pulling Imgproc:\n" && git pull && \
+	cd ../palette && printf "Pulling Palette:\n" && git pull && \
+	cd ../saatchiart && printf "Pulling Legacy:\n" && git pull && \
+	cd ../xdocker && printf "Pulling XDocker:\n" && git pull && \
+	cd ../xgateway && printf "Pulling XGateway:\n" && git pull && \
+	cd ../yzed && printf "Pulling Zed:\n" && git pull
+}
 # XDocker start all
 alias saatchi:start="sudo service mysql stop && \
+		     sudo service apache2 stop && \
+		     saatchipull && \
 		     saatchi && cd xdocker && \
 		     ./start_all --without-pull --disable-backend"
 # XDocker stop app
 alias saatchi:stop="saatchi && cd xdocker && ./stop_all && \
-		    sudo service mysql start"
+		    sudo service mysql start && \
+		    sudo service apache2 start"
+# XDocker MySQL terminal access
+alias saatchi:mysql="saatchi && cd xdocker/mysql && docker compose exec -ti mysql.db mysql -u root"
 
 ### Custom commands for directories/actions
 # Alacritty
@@ -180,12 +203,16 @@ alias aledit="nano $HOME/.config/alacritty/alacritty.yml"
 alias ls="logo-ls"
 # Radian
 alias r="radian"
+# Android Studio
+alias android="sudo /opt/android-studio/bin/studio.sh"
 # Turn on keyboard
 alias kb="sudo rogauracore brightness 3"
+# Reset KB to Eva-01 settings: sudo rogauracore single_breathing 4638ff 0c822b 2
+
 # Kill plank
 alias kp="killall plank"
 # Uni folder
-alias uni="cd ~/Documents/uni/7"
+alias uni="cd ~/Documents/uni/8"
 # Run Jupyter on current folder
 alias jupyter="bash ~/Documents/system/scripts/run-jupyter.sh"
 # Open any folder in VS Code & exit terminal
