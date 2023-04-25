@@ -147,11 +147,13 @@ export FLIP_PATH=$WORK_PATH/flip
 # Navigate to project
 alias flip="cd $FLIP_PATH"
 # Open project in VS Code
-alias flip:code="flip && codef ."
+alias flip:code="flip; cd flip-frontend; codef ."
 # Run /frontend
-alias flip:dev:frontend="flip; cd flip-frontend; npm start"
+alias flip:dev:frontend="flip; cd flip-frontend; yarn dev:frontend"
 # Run /backend
-alias flip:dev:backend="flip; cd flip-python-db; \
+alias flip:dev:backend="flip; cd flip-frontend; yarn dev:backend"
+# Run /python-db
+alias flip:dev:flask="flip; cd flip-python-db; \
 			export FLASK_APP=app.py; \
 			export FLASK_DEBUG=1; \
 			flask run"
