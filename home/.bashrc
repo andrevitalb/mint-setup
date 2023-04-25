@@ -203,6 +203,8 @@ alias aledit="nano $HOME/.config/alacritty/alacritty.yml"
 alias ls="logo-ls"
 # Radian
 alias r="radian"
+# Android Studio
+alias android="sudo /opt/android-studio/bin/studio.sh"
 # Turn on keyboard
 alias kb="sudo rogauracore brightness 3"
 # Reset KB to Eva-01 settings: sudo rogauracore single_breathing 4638ff 0c822b 2
