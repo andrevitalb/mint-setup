@@ -208,7 +208,7 @@ alias kb="sudo rogauracore brightness 3"
 # Kill plank
 alias kp="killall plank"
 # Uni folder
-alias uni="cd ~/Documents/uni/7"
+alias uni="cd ~/Documents/uni/8"
 # Run Jupyter on current folder
 alias jupyter="bash ~/Documents/system/scripts/run-jupyter.sh"
 # Open any folder in VS Code & exit terminal
