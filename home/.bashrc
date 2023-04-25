@@ -205,6 +205,8 @@ alias ls="logo-ls"
 alias r="radian"
 # Turn on keyboard
 alias kb="sudo rogauracore brightness 3"
+# Reset KB to Eva-01 settings: sudo rogauracore single_breathing 4638ff 0c822b 2
+
 # Kill plank
 alias kp="killall plank"
 # Uni folder
