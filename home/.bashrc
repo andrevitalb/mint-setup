@@ -163,11 +163,11 @@ export SAATCHI_PATH=$WORK_PATH/saatchi_art
 # Navigate to project
 alias saatchi="cd $SAATCHI_PATH"
 # Open easel (FE) project in VS Code
-alias saatchi:code:easel="saatchi && cd easel && codef ."
+alias saatchi:code:easel="saatchi; cd easel; codef ."
 # Open legacy (saatchiart) project in VS Code
-alias saatchi:code:legacy="saatchi && cd saatchiart && codef ."
+alias saatchi:code:legacy="saatchi; cd saatchiart; codef ."
 # Open xgateway project in VS Code
-alias saatchi:code:xgateway="saatchi && cd xgateway && codef ."
+alias saatchi:code:xgateway="saatchi; cd xgateway; codef ."
 # Docker login
 alias saatchi:docker="aws sso login && \
    		      (aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 345127489059.dkr.ecr.us-west-1.amazonaws.com)"
@@ -194,7 +194,7 @@ alias saatchi:stop="saatchi && cd xdocker && ./stop_all && \
 		    sudo service mysql start && \
 		    sudo service apache2 start"
 # XDocker MySQL terminal access
-alias saatchi:mysql="saatchi && cd xdocker/mysql && docker compose exec -ti mysql.db mysql -u root"
+alias saatchi:mysql="saatchi; cd xdocker/mysql; docker compose exec -ti mysql.db mysql -u root"
 
 ### Custom commands for directories/actions
 # Alacritty
@@ -206,13 +206,13 @@ alias r="radian"
 # Android Studio
 alias android="sudo /opt/android-studio/bin/studio.sh"
 # Turn on keyboard
-alias kb="sudo rogauracore brightness 3"
-# Reset KB to Eva-01 settings: sudo rogauracore single_breathing 4638ff 0c822b 2
+alias kb="sudo rogauracore single_breathing 6a00ff 00cc07 2; sudo rogauracore brightness 3"
+# Reset KB to Eva-01 settings: sudo rogauracore single_breathing 6a00ff 00cc07 2
 
 # Kill plank
 alias kp="killall plank"
 # Uni folder
-alias uni="cd ~/Documents/uni/8"
+alias uni="cd ~/Documents/uni/9"
 # Run Jupyter on current folder
 alias jupyter="bash ~/Documents/system/scripts/run-jupyter.sh"
 # Open any folder in VS Code & exit terminal
@@ -224,3 +224,7 @@ alias files="nautilus --browser ."
 # Stupid ass misspelling clear all the time
 alias celar="clear"
 alias clera="clear"
+
+# Switch python version (Multiple python versions)
+# https://www.rosehosting.com/blog/how-to-install-and-switch-python-versions-on-ubuntu-20-04/
+alias cpython="sudo update-alternatives --config python"
