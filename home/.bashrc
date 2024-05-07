@@ -116,9 +116,37 @@ if ! shopt -oq posix; then
   fi
 fi
 
+bold=$(tput bold)
+normal=$(tput sgr0)
+
 alias mkdir='mkdir -p'
-export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.cargo/env:$HOME/.bun/bin
+
+### Git
+alias gcm="git commit -m"
+alias gps="git push"
+alias gpl="git pull"
+
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.cargo/env:$HOME/.bun/bin:/usr/share/dotnet/sdk
 export WORK_PATH=$HOME/Documents/work_stuff
+alias work="cd $WORK_PATH"
+
+function current_branch() {
+	current_branch=$(git branch --show-current)
+	echo -e  "\033[36m$current_branch\033[0;39m"
+}
+
+function colored_git_pull() {
+	git pull 2>&1 | grep -qE "Already up to date\.?"
+	if [[ $? -eq 0 ]]; then
+			echo -e "\033[32mAlready up to date\033[0;39m"
+	else
+			git pull
+	fi
+}
+
+function current_git_pull() {
+	cd $1 && echo -e "\nPulling $2 ($(current_branch)):" && colored_git_pull
+}
 
 ### Perfected commands
 export PERFECTED_PATH=$WORK_PATH/originate/perfected
@@ -130,6 +158,66 @@ alias perfected:code="perfected && codef ."
 alias pf:dev:frontend="perfected; yarn dev:frontend"
 # Run /backend
 alias pf:dev:backend="perfected; yarn dev:backend"
+
+### OpenWeb commands
+export OPENWEB_PATH=$WORK_PATH/originate/openweb
+# Navigate to project
+alias openweb="cd $OPENWEB_PATH"
+# Open admin-panel project in VS Code
+alias ow:admin:code="openweb; codef admin-panel"
+# Open conversation-api project in VS Code
+alias ow:conversation:code="openweb; codef social-platform/apps/conversation-api"
+# Open launcher project in VS Code
+alias ow:launcher:code="openweb; codef social-platform/apps/launcher"
+# Open social-db-api in VS Code
+alias ow:social:code="openweb; codef social-db-api"
+# Run admin client
+alias ow:dev:admin="openweb; cd admin-panel; pnpm dev"
+# Run launcher
+alias ow:dev:launcher="openweb; cd social-platform/apps/launcher; pnpm dev"
+# Run Conversation API
+alias ow:dev:conversation="openweb; cd social-platform/apps/conversation-api; pnpm dev"
+# Run Social DB API
+alias ow:dev:social="openweb; cd social-db-api; SERVICE=social-db-api ENV=development PORT=8080 HOST=localhost DB_NAME=social-db-api DB_HOST=localhost DB_PASSWORD=password DB_PORT=5432 DB_USER=postgres GO_ENV=development GIN_MODE=debug GOMAXPROCS=8 IS_LOCAL_RUN=1 LOG_LEVEL=INFO PUBLISHERS_SERVICE_URL="" DB_LOG_LEVEL=info DB_PARAMETERIZED_QUERIES=false go run main.go server.go runserver"
+# Run Social DB API migrations
+alias ow:migrate:social="openweb; cd social-db-api; SERVICE=social-db-api ENV=development PORT=8080 HOST=localhost DB_NAME=social-db-api DB_HOST=localhost DB_PASSWORD=password DB_PORT=5432 DB_USER=postgres GO_ENV=development GIN_MODE=debug GOMAXPROCS=8 IS_LOCAL_RUN=1 LOG_LEVEL=INFO PUBLISHERS_SERVICE_URL="" DB_LOG_LEVEL=info DB_PARAMETERIZED_QUERIES=false go run main.go server.go migrate"
+# Pull from all git repositories
+openwebpull() {
+	echo -e "\033[36m${bold}OpenWeb pull:${normal}" && \
+	current_git_pull "$OPENWEB_PATH/admin-panel" "Admin Panel" && \
+	current_git_pull "$OPENWEB_PATH/social-platform" "Monorepo" && \
+	current_git_pull "$OPENWEB_PATH/social-db-api" "Social DB API" && \
+	current_git_pull "$OPENWEB_PATH/comments-consumer" "Comments Consumer" && \
+	current_git_pull "$OPENWEB_PATH/comments-moderation-consumer" "Comments Moderation Consumer" && \
+	current_git_pull "$OPENWEB_PATH/publisher-db-api" "Publisher DB API" && \
+	current_git_pull "$OPENWEB_PATH/user-db-api" "User DB API" && \
+	printf "\nAll done!\n"
+}
+alias ow:pull="openwebpull"
+# Run Kafka UI
+alias ow:kafka="docker run -p 8888:8080 -e KAFKA_CLUSTERS_0_NAME=dev-kafka -e KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka-dev-0.tncxch.c6.kafka.us-east-1.amazonaws.com:9092 -d provectuslabs/kafka-ui:latest"
+
+## OpenWeb1 commands
+export OPENWEB1_PATH=$OPENWEB_PATH/demand-platform
+# Navigate to project
+alias ow1="cd $OPENWEB1_PATH"
+# Navigate to demand-portal
+alias ow1:portal="ow1; cd apps/demand-portal;"
+# Open OW1 in VS Code
+alias ow1:code="ow1; codef ."
+# Open OW1 demand-portal in VS Code"
+alias ow1:portal:code="ow1; codef apps/demand-portal"
+# Run OW1
+alias ow1:dev="ow1; pnpm dev"
+# Run OW1 demand-portal
+alias ow1:portal:dev="ow1; cd apps/demand-portal; pnpm dev"
+# Pull from all git repositories
+openweb1pull() {
+	echo -e "\033[36m${bold}OpenWeb1 pull:${normal}" && \
+	current_git_pull "$OPENWEB1_PATH" "OpenWeb1" && \
+	printf "\nAll done!\n"
+}
+alias ow1:pull="openweb1pull"
 
 ### AV commands
 export AV_PATH=$WORK_PATH/av/andrevital.com
@@ -170,7 +258,7 @@ alias saatchi:code:legacy="saatchi; cd saatchiart; codef ."
 alias saatchi:code:xgateway="saatchi; cd xgateway; codef ."
 # Docker login
 alias saatchi:docker="aws sso login && \
-   		      (aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 345127489059.dkr.ecr.us-west-1.amazonaws.com)"
+				(aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 345127489059.dkr.ecr.us-west-1.amazonaws.com)"
 # Pull from all git repositories
 saatchipull() {
   saatchi && \
@@ -185,26 +273,41 @@ saatchipull() {
 }
 # XDocker start all
 alias saatchi:start="sudo service mysql stop && \
-		     sudo service apache2 stop && \
-		     saatchipull && \
-		     saatchi && cd xdocker && \
-		     ./start_all --without-pull --disable-backend"
+				sudo service apache2 stop && \
+				saatchipull && \
+				saatchi && cd xdocker && \
+				./start_all --without-pull --disable-backend"
 # XDocker stop app
 alias saatchi:stop="saatchi && cd xdocker && ./stop_all && \
-		    sudo service mysql start && \
-		    sudo service apache2 start"
+				sudo service mysql start && \
+				sudo service apache2 start"
 # XDocker MySQL terminal access
 alias saatchi:mysql="saatchi; cd xdocker/mysql; docker compose exec -ti mysql.db mysql -u root"
 
+### Tatem
+export TATEM_PATH=$WORK_PATH/av/tatem
+# Navigate to project
+alias tatem="cd $TATEM_PATH"
+# Open project in VS Code
+alias tatem:code="tatem; codef .;"
+# Run /frontend
+alias tatem:dev:frontend="tatem; yarn dev:frontend;"
+# Run /backend
+alias tatem:dev:backend="tatem; yarn dev:backend;"
+# Start db
+alias tatem:db="sudo service mongod stop; docker container start f8370f7fbed9;"
+
 ### Custom commands for directories/actions
 # Alacritty
-alias aledit="nano $HOME/.config/alacritty/alacritty.yml"
+alias aledit="nano $HOME/.config/alacritty/alacritty.toml"
 # Logo-LS
 alias ls="logo-ls"
 # Radian
 alias r="radian"
 # Android Studio
 alias android="sudo /opt/android-studio/bin/studio.sh"
+# Orange Data Mining
+alias orange="python -m Orange.canvas"
 # Turn on keyboard
 alias kb="sudo rogauracore single_breathing 6a00ff 00cc07 2; sudo rogauracore brightness 3"
 # Reset KB to Eva-01 settings: sudo rogauracore single_breathing 6a00ff 00cc07 2
@@ -212,7 +315,9 @@ alias kb="sudo rogauracore single_breathing 6a00ff 00cc07 2; sudo rogauracore br
 # Kill plank
 alias kp="killall plank"
 # Uni folder
-alias uni="cd ~/Documents/uni/9"
+alias uni="cd ~/Documents/uni/10"
+# Code Web Services project
+alias uni:code="uni; codef web/dates-app"
 # Run Jupyter on current folder
 alias jupyter="bash ~/Documents/system/scripts/run-jupyter.sh"
 # Open any folder in VS Code & exit terminal
@@ -228,3 +333,17 @@ alias clera="clear"
 # Switch python version (Multiple python versions)
 # https://www.rosehosting.com/blog/how-to-install-and-switch-python-versions-on-ubuntu-20-04/
 alias cpython="sudo update-alternatives --config python"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# PNPM NVM (sort of)
+pnpm-v() {
+    corepack prepare pnpm@"$1" --activate
+}
+
+. "$HOME/.cargo/env"
+
+# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
